@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="alfaleads_documents_accounting_view_form" model="ir.ui.view">
+        <field name="name">alfaleads_documents.view.form</field>
+        <field name="model">alfaleads_documents.accounting_document</field>
+        <field name="arch" type="xml">
+            <form string="Accounting document">
+
+                <sheet>
+                    <group>
+                        <field name="fill_status" widget="state_selection" readonly="1" invisible="1"/>
+                        <field name="contract_id"
+                               options="{'no_create': True, 'no_create_edit':True}"
+                               context="{'tree_view_ref': 'alfaleads_documents.alfaleads_documents_view_list_contracts_search_more'}"
+                        />
+
+                    </group>
+                    <group>
+                        <group>
+                            <field name="folder_id" invisible="1" />
+                            <field name="document_type_id" create="True"/>
+                            <field name="document_no" />
+                            <field name="document_date" />
+                            <field name="advisability_legal_id" />
+                        </group>
+                        <group>
+                            <field name="counterparty_legal_id" />
+                            <field name="slang_list_ids" invisible="1" />
+                            <field name="slang_id" domain="[('id', 'in', slang_list_ids)]"/>
+                            <field name="transferred_to_archive_id" options="{'no_create': True, 'no_create_edit':True}" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comment"/>
+                    </group>
+                    <group>
+                        <field name="attachment_ids" widget="many2many_binary" string="Attach a file" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="alfaleads_documents_view_list_accounting" model="ir.ui.view">
+        <field name="name">accounting.list</field>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <tree js_class="alfaleads_documents_list_js"
+                  create="false" edit="false"
+                  decoration-info="type == 'empty'"
+                  sample="1">
+
+                <field name="id" optional="hide" groups="base.group_no_one"/>
+
+                <field name="acc_document_type_id" />
+                <field name="acc_document_no" optional="show" />
+                <field name="acc_document_date" />
+                <field name="acc_slang_id" optional="show" string="Slang"/>
+                <field name="acc_counterparty_legal_id" optional="show" string="Counterparty legal"/>
+                <field name="acc_transferred_to_archive_id" optional="show"/>
+                <field name="acc_advisability_legal_id" optional="show"/>
+                <field name="acc_comment" optional="show" string="Comment"/>
+                <field name="acc_fill_status" optional="hide" widget="state_selection" readonly="1" invisible="1"
+                       string="Fill status"/>
+
+                <field name="name" string="Document" required="True"/>
+
+                <!-- hidden optional fields from default list view-->
+                <field name="res_model_name" string="Document" optional="hide"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="accounting_id" optional="hide"/>
+                <field name="url" optional="hide"/>
+                <field name="tag_ids" widget="documents_many2many_tags" optional="hide"/>
+                <field name="owner_id" widget="many2one_avatar_user" optional="hide"/>
+                <field name="lock_uid" optional="hide"/>
+                <field name="type" optional="hide"/>
+                <field name="create_date" widget="date"  optional="hide"/>
+                <field name="activity_exception_decoration" widget="activity_exception"  optional="hide"/>
+
+                <!-- special for preview widget -->
+                <field name="viewer_type" invisible="1" />
+                <field name="preview_supported" invisible="1" />
+
+                <!-- special for open related contract -->
+                <field name="contract_id" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="alfaleads_documents_accounting_search" model="ir.ui.view">
+        <field name="name">alfaleads.documents.accounting_search</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_search" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='create_uid']" position="after">
+                <field name="acc_contract_id_name" string="Related Contract"/>
+                <field name="acc_document_type_id" string="Document Type"/>
+                <field name="acc_document_no" string="Document No."/>
+                <field name="acc_document_date" string="Document date"/>
+                <field name="acc_advisability_legal_id" string="Own legal"/>
+                <field name="acc_counterparty_legal_id" string="Accounting Counterparty legal"/>
+                <field name="acc_slang_id" string="Slang"/>
+                <field name="acc_transferred_to_archive_id" string="Transferred to archive"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_alfaleads_documents_accounting_document" model="ir.actions.act_window">
+        <field name="name">Accounting documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">documents.document</field>
+        <field name="search_view_id" ref="alfaleads_documents_accounting_search" />
+        <field name="domain">[('res_model', '=', 'alfaleads_documents.accounting_document')]</field>
+        <field name="view_mode">tree</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('alfaleads_documents.alfaleads_documents_view_list_accounting')}),
+        ]"/>
+
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Here are your accounting documents
+            </p>
+        </field>
+        <field name="context">{"document_model": "alfaleads_documents.accounting_document"}</field>
+    </record>
+
+
+    <menuitem name="Accounting" id="alfaleads_documents.accounting_docs" parent="documents.DocumentsMenu" action="action_alfaleads_documents_accounting_document" groups="base.group_user" sequence="2"/>
+
+</odoo>

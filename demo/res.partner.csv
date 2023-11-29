@@ -1,0 +1,6 @@
+id,active,active_client,affise_id,partner_type_id:id,email,name,phone,company_type,vat,hubspot_id,hubspot_link
+res_partner_affiliate_ltd,1,1,,,,Direct Affiliate Ltd. ,,,,
+res_partner_priority_ooo,1,1,,,,ПРАЙОРИТИ ООО ,,,,
+res_partner_edcobrite_pty_ltd,1,1,,,,Edcobrite (Pty) Ltd,,Company,,,
+res_partner_alfaleads_affiliate_ou,1,1,,,,Alfaleads Affiliate OU,,Company,,,
+res_partner_10bet,1,1,,,,10Bet,,Company,5616178561,5616178561,https://app.hubspot.com/contacts/8095513/company/5616178561

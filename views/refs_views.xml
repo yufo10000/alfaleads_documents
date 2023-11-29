@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- base view -->
+    <record id="alfaleads_documents_view_base_ref_form" model="ir.ui.view">
+        <field name="name">base_ref.form</field>
+        <field name="model">alfaleads_documents.base_ref</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="slug" />
+                    <field name="name" />
+                    <field name="folder_id" />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="alfaleads_documents_view_base_ref_list" model="ir.ui.view">
+        <field name="name">base_ref.list</field>
+        <field name="model">alfaleads_documents.base_ref</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="slug" />
+                <field name="name" />
+                <field name="folder_id" />
+            </tree>
+        </field>
+    </record>
+    <!-- end of base view -->
+
+    <!-- ref_doc_type -->
+    <record id="alfaleads_documents_view_ref_doc_type_form" model="ir.ui.view">
+        <field name="name">ref_doc_type.form</field>
+        <field name="model">alfaleads_documents.ref_doc_type</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_form"/>
+        <field name="arch" type="xml"><form></form></field>
+    </record>
+    <record id="alfaleads_documents_view_ref_doc_type_list" model="ir.ui.view">
+        <field name="name">ref_doc_type.list</field>
+        <field name="model">alfaleads_documents.ref_doc_type</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_list"/>
+        <field name="arch" type="xml"><tree></tree></field>
+    </record>
+    <record id="action_alfaleads_documents_ref_doc_type" model="ir.actions.act_window">
+        <field name="name">Document types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">alfaleads_documents.ref_doc_type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- end of ref_doc_type -->
+
+    <!-- transferred_to_archive -->
+    <record id="alfaleads_documents_view_transferred_to_archive_form" model="ir.ui.view">
+        <field name="name">transferred_to_archive.form</field>
+        <field name="model">alfaleads_documents.transferred_to_archive</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_form"/>
+        <field name="arch" type="xml"><form></form></field>
+    </record>
+    <record id="alfaleads_documents_view_transferred_to_archive_list" model="ir.ui.view">
+        <field name="name">transferred_to_archive.list</field>
+        <field name="model">alfaleads_documents.transferred_to_archive</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_list"/>
+        <field name="arch" type="xml"><tree></tree></field>
+    </record>
+    <record id="action_alfaleads_documents_transferred_to_archive" model="ir.actions.act_window">
+        <field name="name">Transferred to archive</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">alfaleads_documents.transferred_to_archive</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- end of transferred_to_archive -->
+
+    <!-- Counterparty type -->
+    <record id="alfaleads_documents_view_counterparty_type_form" model="ir.ui.view">
+        <field name="name">counterparty_type.form</field>
+        <field name="model">alfaleads_documents.counterparty_type</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_form"/>
+        <field name="arch" type="xml"><form></form></field>
+    </record>
+    <record id="alfaleads_documents_view_ref_doc_type_list" model="ir.ui.view">
+        <field name="name">counterparty_type.list</field>
+        <field name="model">alfaleads_documents.counterparty_type</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="alfaleads_documents.alfaleads_documents_view_base_ref_list"/>
+        <field name="arch" type="xml"><tree></tree></field>
+    </record>
+    <record id="action_alfaleads_documents_counterparty_type" model="ir.actions.act_window">
+        <field name="name">Counterparty type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">alfaleads_documents.counterparty_type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- end of Counterparty type -->
+
+
+    <!-- menu -->
+    <menuitem name="Document types" id="alfaleads_documents.ref_doc_type_menu" parent="documents.Config" action="action_alfaleads_documents_ref_doc_type" groups="base.group_user" sequence="10"/>
+    <menuitem name="Transferred to archive" id="alfaleads_documents.transferred_to_archive_menu" parent="documents.Config" action="action_alfaleads_documents_transferred_to_archive" groups="base.group_user" sequence="11"/>
+    <menuitem name="Counterparty type" id="alfaleads_documents.counterparty_type_menu" parent="documents.Config" action="action_alfaleads_documents_counterparty_type" groups="base.group_user" sequence="12"/>
+
+</odoo>

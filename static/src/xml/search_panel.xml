@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="alfaleads_documents.SearchPanel.Category" t-inherit="documents.SearchPanel.Category" t-inherit-mode="extension" owl="1">
+        <xpath expr="//label[contains(@class, 'o_search_panel_label')]" position="replace">
+            <div class="o_toggle_fold">
+                <i t-if="value.childrenIds.length"
+                   t-attf-class="fa fa-caret-{{ state.expanded[section.id][valueId] ? 'down' : 'right' }}"
+                />
+            </div>
+            <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.display_name"
+               t-att-title="value.display_name"
+               data-toogle="tooltip"
+               data-placement="right"
+            />
+            <span t-else="" class="o_search_panel_label_title" t-esc="value.display_name"
+                  t-att-title="value.display_name"
+                  data-toogle="tooltip"
+                  data-placement="right"
+            />
+        </xpath>
+
+    </t>
+</templates>

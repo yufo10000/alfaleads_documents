@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="alfaleads_documents.DocumentsViews.Buttons" t-inherit="documents.DocumentsViews.Buttons" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[contains(@t-attf-class, 'o_documents_kanban_upload')]" position="before">
+            <button type="button" class="btn btn-primary o_documents_create_folder" title="New Folder" t-on-click.stop.prevent="onClickCreateFolder">
+                New Folder
+            </button>
+
+            <button type="button" class="btn btn-primary o_documents_create_document" title="New Document" t-on-click.stop.prevent="onClickCreateDocument" t-if="visibleCreateDocument">
+                New Document
+            </button>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="alfaleads_documents.view_partner_form" model="ir.ui.view">
+            <field name="name">alfaleads.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="alfaleads_crm.alfaleads_res_partner_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <field name="is_advertiser_partner_type" invisible="1" />
+                    <field name="is_legal_partner_type" invisible="1" />
+                    <page string="Advertisers" attrs="{'invisible':[('is_legal_partner_type','!=', True)]}">
+                        <field name="advertiser_partner_type_id" invisible="1" />
+                        <field name="advertisers_ids" domain="[('partner_type_id', '=', advertiser_partner_type_id)]"/>
+                    </page>
+                    <page string="Legals" attrs="{'invisible':[('is_advertiser_partner_type','!=', True)]}">
+                        <field name="legal_partner_type_id" invisible="1" />
+                        <field name="legals_ids" domain="[('partner_type_id', '=', legal_partner_type_id)]"/>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='partner_type_id']" position="attributes">
+                    <attribute name="attrs">
+                        {'readonly': ['|', ('legals_ids', '!=', []), ('advertisers_ids', '!=', [])]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
